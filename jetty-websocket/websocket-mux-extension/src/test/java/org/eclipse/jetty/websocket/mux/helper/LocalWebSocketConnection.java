@@ -243,6 +243,19 @@ public class LocalWebSocketConnection implements LogicalConnection, IncomingFram
     }
 
     @Override
+    public void setBatchingAllowed(boolean allowed)
+    {
+        if (allowed)
+            throw new UnsupportedOperationException("Batching not supported");
+    }
+
+    @Override
+    public boolean getBatchingAllowed()
+    {
+        return false;
+    }
+    
+    @Override
     public String toString()
     {
         return String.format("%s[%s]",LocalWebSocketConnection.class.getSimpleName(),id);

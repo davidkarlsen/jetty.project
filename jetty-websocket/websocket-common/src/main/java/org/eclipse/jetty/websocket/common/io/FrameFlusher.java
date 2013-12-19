@@ -89,12 +89,20 @@ public class FrameFlusher
      */
     public void setBufferSize(int bufferSize)
     {
-        this.bufferSize = bufferSize;
+        synchronized (lock)
+        {
+            if (bufferSize>0)
+                throw new UnsupportedOperationException("Batching is not supported");
+            this.bufferSize = bufferSize;
+        }
     }
     
     public int getBufferSize()
     {
-        return bufferSize;
+        synchronized (lock)
+        {
+            return bufferSize;
+        }
     }
 
     /**

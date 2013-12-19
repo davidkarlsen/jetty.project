@@ -251,10 +251,7 @@ public class Generator
             // we have a 64 bit length
             b |= 0x7F;
             buffer.put(b); // indicate 8 byte length
-            buffer.put((byte)0); //
-            buffer.put((byte)0); // anything over an
-            buffer.put((byte)0); // int is just
-            buffer.put((byte)0); // insane!
+            buffer.putInt(0); // anything over an int is just insane!
             buffer.put((byte)((payloadLength >> 24) & 0xFF));
             buffer.put((byte)((payloadLength >> 16) & 0xFF));
             buffer.put((byte)((payloadLength >> 8) & 0xFF));

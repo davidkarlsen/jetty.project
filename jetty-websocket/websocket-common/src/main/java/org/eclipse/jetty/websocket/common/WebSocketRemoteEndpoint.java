@@ -390,4 +390,21 @@ public class WebSocketRemoteEndpoint implements RemoteEndpoint
             unlockMsg();
         }
     }
+
+    @Override
+    public void setBatchingAllowed(boolean allowed)
+    {
+        connection.setBatchingAllowed(allowed);
+    }
+
+    @Override
+    public boolean getBatchingAllowed()
+    {
+        return connection.getBatchingAllowed();
+    }
+
+    public void flushBatch()
+    {
+        // Nothing to do here as we are always eagerly flushing.
+    }
 }

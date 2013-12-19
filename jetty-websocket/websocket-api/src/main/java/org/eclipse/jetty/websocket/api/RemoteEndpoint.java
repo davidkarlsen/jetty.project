@@ -121,4 +121,8 @@ public interface RemoteEndpoint
      *            callback to notify of success or failure of the write operation
      */
     void sendString(String text, WriteCallback callback);
+
+    public abstract boolean getBatchingAllowed();
+
+    public abstract void setBatchingAllowed(boolean allowed);
 }

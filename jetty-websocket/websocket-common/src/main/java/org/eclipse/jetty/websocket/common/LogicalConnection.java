@@ -136,7 +136,7 @@ public interface LogicalConnection extends OutgoingFrames, SuspendToken
     /**
      * Set the maximum number of milliseconds of idleness before the connection is closed/disconnected, (ie no frames are either sent or received)
      * <p>
-     * This idle timeout cannot be garunteed to take immediate effect for any active read/write actions.
+     * This idle timeout cannot be guaranteed to take immediate effect for any active read/write actions.
      * New read/write actions will have this new idle timeout.
      * 
      * @param ms
@@ -166,4 +166,8 @@ public interface LogicalConnection extends OutgoingFrames, SuspendToken
      * Suspend a the incoming read events on the connection.
      */
     SuspendToken suspend();
+
+    public void setBatchingAllowed(boolean allowed);
+
+    public boolean getBatchingAllowed();
 }

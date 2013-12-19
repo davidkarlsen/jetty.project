@@ -110,7 +110,7 @@ public abstract class WebSocketFrame implements Frame
      * <p>
      * It is assumed to always be in FLUSH mode (ready to read) in this object.
      */
-    protected ByteBuffer data;
+    private ByteBuffer data;
 
     /**
      * Construct form opcode

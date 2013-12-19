@@ -80,14 +80,13 @@ public abstract class AbstractJsrRemote implements RemoteEndpoint
     @Override
     public void flushBatch() throws IOException
     {
-        // TODO Auto-generated method stub
+        jettyRemote.flushBatch();
     }
 
     @Override
     public boolean getBatchingAllowed()
     {
-        // TODO Auto-generated method stub
-        return false;
+        return jettyRemote.getBatchingAllowed();
     }
 
     @SuppressWarnings(
@@ -189,6 +188,6 @@ public abstract class AbstractJsrRemote implements RemoteEndpoint
     @Override
     public void setBatchingAllowed(boolean allowed) throws IOException
     {
-        // TODO Auto-generated method stub
+        jettyRemote.setBatchingAllowed(allowed);
     }
 }
