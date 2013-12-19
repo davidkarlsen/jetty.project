@@ -568,6 +568,19 @@ public abstract class AbstractWebSocketConnection extends AbstractConnection imp
     }
 
     @Override
+    public void setBatchingAllowed(boolean allowed)
+    {
+        // TODO make this configurable
+        flusher.setBufferSize(allowed?4096:0);
+    }
+
+    @Override
+    public boolean getBatchingAllowed()
+    {
+        return flusher.getBufferSize()>0;
+    }
+    
+    @Override
     public String toString()
     {
         return String.format("%s{g=%s,p=%s}",super.toString(),generator,parser);

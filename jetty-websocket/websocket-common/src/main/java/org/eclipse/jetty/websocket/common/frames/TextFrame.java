@@ -19,13 +19,17 @@
 package org.eclipse.jetty.websocket.common.frames;
 
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 
 import org.eclipse.jetty.util.BufferUtil;
 import org.eclipse.jetty.util.StringUtil;
 import org.eclipse.jetty.websocket.common.OpCode;
+import org.eclipse.jetty.websocket.common.WebSocketFrame;
 
 public class TextFrame extends DataFrame
 {
+    String text;
+    
     public TextFrame()
     {
         super(OpCode.TEXT);
@@ -39,16 +43,74 @@ public class TextFrame extends DataFrame
 
     public TextFrame setPayload(String str)
     {
-        setPayload(ByteBuffer.wrap(StringUtil.getUtf8Bytes(str)));
+        /* delay wrapping string until needed */
+        super.setPayload(null);
+        text=str;
         return this;
     }
     
+    
+    @Override
+    public WebSocketFrame setPayload(ByteBuffer buf)
+    {
+        text=BufferUtil.toString(buf,StandardCharsets.UTF_8);
+        return super.setPayload(buf);
+    }
+
+    @Override
+    public ByteBuffer getPayload()
+    {
+        ByteBuffer data=super.getPayload();
+        if (data==null && text!=null)
+            super.setPayload(data=ByteBuffer.wrap(StringUtil.getUtf8Bytes(text)));
+        return data;
+    }
+
+    @Override
+    public int getPayloadLength()
+    {
+        getPayload();
+        return super.getPayloadLength();
+    }
+
+    @Override
+    public void releaseBuffer()
+    {
+        if (super.getPayload()!=null)
+            super.releaseBuffer();
+        text=null;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj instanceof TextFrame)
+        {
+            TextFrame other = (TextFrame)obj;
+            if (text==null)
+                return other.text==null;
+            return text.equals(other.text);
+        }
+        getPayload();
+        return super.equals(obj);
+    }
+
+    @Override
+    public boolean hasPayload()
+    {
+        return text!=null;
+    }
+
+    @Override
+    public void reset()
+    {
+        text=null;
+        super.reset();
+    }
+
+    @Override
     public String getPayloadAsUTF8()
     {
-        if (data == null)
-        {
-            return null;
-        }
-        return BufferUtil.toUTF8String(data);
+        return text;
     }
 }

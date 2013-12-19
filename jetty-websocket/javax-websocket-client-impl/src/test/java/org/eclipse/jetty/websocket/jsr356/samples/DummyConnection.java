@@ -152,4 +152,17 @@ public class DummyConnection implements LogicalConnection
     {
         return null;
     }
+
+    @Override
+    public void setBatchingAllowed(boolean allowed)
+    {
+        if (allowed)
+            throw new UnsupportedOperationException("Batching not supported");
+    }
+
+    @Override
+    public boolean getBatchingAllowed()
+    {
+        return false;
+    }
 }

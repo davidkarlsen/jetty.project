@@ -245,4 +245,19 @@ public class MuxChannel implements LogicalConnection, IncomingFrames, SuspendTok
         // TODO: how to suspend reading?
         return this;
     }
+
+
+    @Override
+    public void setBatchingAllowed(boolean allowed)
+    {
+        // TODO should it be supported?
+        if (allowed)
+            throw new UnsupportedOperationException("Batching not supported");
+    }
+
+    @Override
+    public boolean getBatchingAllowed()
+    {
+        return false;
+    }
 }

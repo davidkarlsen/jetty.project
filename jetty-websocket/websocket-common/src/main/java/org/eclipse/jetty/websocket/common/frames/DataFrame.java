@@ -18,6 +18,8 @@
 
 package org.eclipse.jetty.websocket.common.frames;
 
+import java.nio.ByteBuffer;
+
 import org.eclipse.jetty.io.ByteBufferPool;
 import org.eclipse.jetty.websocket.api.extensions.Frame;
 import org.eclipse.jetty.websocket.common.OpCode;
@@ -82,8 +84,12 @@ public class DataFrame extends WebSocketFrame
     {
         if (pool!=null)
         {
-            pool.release(this.data);
-            this.data=null;
+            ByteBuffer data=getPayload();
+            if (data!=null)
+            {
+                setPayload(null);
+                pool.release(data);
+            }
         }
     }
 

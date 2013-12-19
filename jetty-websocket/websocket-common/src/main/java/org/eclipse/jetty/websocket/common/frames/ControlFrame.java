@@ -82,14 +82,15 @@ public abstract class ControlFrame extends WebSocketFrame
             return false;
         }
         ControlFrame other = (ControlFrame)obj;
+        ByteBuffer data= getPayload();
         if (data == null)
         {
-            if (other.data != null)
+            if (other.getPayload() != null)
             {
                 return false;
             }
         }
-        else if (!data.equals(other.data))
+        else if (!data.equals(other.getPayload()))
         {
             return false;
         }
@@ -124,7 +125,7 @@ public abstract class ControlFrame extends WebSocketFrame
     {
         if (buf == null)
         {
-            data = null;
+            super.setPayload(null);
             return this;
         }
 

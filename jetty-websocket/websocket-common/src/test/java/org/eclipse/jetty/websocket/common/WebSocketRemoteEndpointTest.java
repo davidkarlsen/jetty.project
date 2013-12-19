@@ -23,6 +23,7 @@ import static org.hamcrest.Matchers.containsString;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
+import org.eclipse.jetty.websocket.api.RemoteEndpoint;
 import org.eclipse.jetty.websocket.common.io.LocalWebSocketConnection;
 import org.junit.Assert;
 import org.junit.Rule;
@@ -39,7 +40,7 @@ public class WebSocketRemoteEndpointTest
     {
         LocalWebSocketConnection conn = new LocalWebSocketConnection(testname);
         OutgoingFramesCapture outgoing = new OutgoingFramesCapture();
-        WebSocketRemoteEndpoint remote = new WebSocketRemoteEndpoint(conn,outgoing);
+        RemoteEndpoint remote = new WebSocketRemoteEndpoint(conn,outgoing);
         conn.connect();
         conn.open();
 
@@ -69,7 +70,7 @@ public class WebSocketRemoteEndpointTest
     {
         LocalWebSocketConnection conn = new LocalWebSocketConnection(testname);
         OutgoingFramesCapture outgoing = new OutgoingFramesCapture();
-        WebSocketRemoteEndpoint remote = new WebSocketRemoteEndpoint(conn,outgoing);
+        RemoteEndpoint remote = new WebSocketRemoteEndpoint(conn,outgoing);
         conn.connect();
         conn.open();
 
